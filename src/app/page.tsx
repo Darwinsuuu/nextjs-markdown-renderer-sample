@@ -96,7 +96,11 @@ export default function Home() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setRenderedMarkdown(markdownInput || placeholderMarkdown);
+    const normalizedInput =
+      markdownInput && markdownInput.includes("\\n")
+        ? markdownInput.replace(/\\n/g, "\n")
+        : markdownInput;
+    setRenderedMarkdown(normalizedInput || placeholderMarkdown);
   };
 
   const handleReset = () => {
@@ -109,7 +113,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-50 via-white to-zinc-100 text-zinc-900">
+    <div className="min-h-screen bg-linear-to-b from-zinc-50 via-white to-zinc-100 text-zinc-900">
       <main className="mx-auto flex items-start justify-start w-full flex-col gap-8 px-6 py-16 sm:px-10">
         <header className="space-y-2">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-indigo-600">
